@@ -223,8 +223,8 @@ public class Hand {
 				(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteSuit()))
 		{
 			hs.setHandStrength(eHandStrength.Flush.getHandStrength());
-			hs.setHiHand(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr());
-			hs.setLoHand(0);
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
 			ArrayList<Card> kickers = new ArrayList<Card>();
 			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
 			hs.setKickers(kickers);
@@ -239,8 +239,47 @@ public class Hand {
 	}
 
 	public static boolean isHandThreeOfAKind(Hand h, HandScore hs) {
-		hs.setHandStrength(eHandStrength.ThreeOfAKind.getHandStrength());
-		return false;
+boolean bHandCheck = false;
+		
+		if (h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() == 
+				h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank()) 
+		{
+			bHandCheck =true;
+			hs.setHandStrength(eHandStrength.ThreeOfAKind.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(0);
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			kickers.add(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()));
+			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
+			hs.setKickers(kickers);
+			
+		} else if (h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank() == 
+				h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank()) 
+		{
+			bHandCheck =true;
+			hs.setHandStrength(eHandStrength.ThreeOfAKind.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(0);
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			kickers.add(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()));
+			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
+
+			hs.setKickers(kickers);
+		}
+		else if (h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank() == 
+				h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank()) 
+		{
+			bHandCheck =true;
+			hs.setHandStrength(eHandStrength.ThreeOfAKind.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(0);
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			kickers.add(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()));
+			kickers.add(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()));
+			hs.setKickers(kickers);
+		}
+		
+		return bHandCheck;
 	}
 
 	public static boolean isHandTwoPair(Hand h, HandScore hs) {
