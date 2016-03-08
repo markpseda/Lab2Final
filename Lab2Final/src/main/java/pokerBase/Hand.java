@@ -142,12 +142,28 @@ public class Hand {
 	}
 
 	public static boolean isHandRoyalFlush(Hand h, HandScore hs) {
-		hs.setHandStrength(eHandStrength.RoyalFlush.getHandStrength());
+		if (isHandStraightFlush(h,hs)&&(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank()).getiRankNbr()==14)
+		{
+			hs.setHandStrength(eHandStrength.RoyalFlush.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			hs.setKickers(kickers);
+			return true;
+		}
 		return false;
 	}
 
 	public static boolean isHandStraightFlush(Hand h, HandScore hs) {
-		hs.setHandStrength(eHandStrength.StraightFlush.getHandStrength());
+		if (isHandFlush(h,hs) && isHandStraight(h,hs))
+		{
+			hs.setHandStrength(eHandStrength.StraightFlush.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			hs.setKickers(kickers);
+			return true;
+		}
 		return false;
 	}
 
@@ -226,7 +242,6 @@ public class Hand {
 			hs.setHiHand(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank().getiRankNbr());
 			hs.setLoHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
 			ArrayList<Card> kickers = new ArrayList<Card>();
-			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
 			hs.setKickers(kickers);
 			return true;
 		}
@@ -234,7 +249,22 @@ public class Hand {
 	}
 
 	public static boolean isHandStraight(Hand h, HandScore hs) {
-		hs.setHandStrength(eHandStrength.Straight.getHandStrength());
+		if (((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank()).getiRankNbr()+1) == 
+				(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank()).getiRankNbr()&&
+				((h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank()).getiRankNbr()+1) ==
+				(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank()).getiRankNbr()&&
+				((h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank()).getiRankNbr()+1) ==
+				(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank()).getiRankNbr()&&
+				((h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteRank()).getiRankNbr()+1) ==
+				(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank()).getiRankNbr())
+		{
+			hs.setHandStrength(eHandStrength.Straight.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			hs.setKickers(kickers);
+			return true;
+		}
 		return false;
 	}
 
