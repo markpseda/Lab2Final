@@ -4,40 +4,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import exceptions.DeckException;
-import flexjson.JSON;
+
 import pokerEnums.eHandStrength;
 import pokerEnums.eRank;
 import pokerEnums.eSuit;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 
  * @author Bert.Gibbons
  *
  */
-@XmlRootElement
+
 public class Deck {
 
 	/**
 	 * 
 	 */
-	@XmlElement
+
 	private ArrayList<Card> deckCards = new ArrayList<Card>();
 
 	/**
 	 * No arg constructor for deck, will return shuffled deck of 52 cards
 	 */
 
-	private Deck()
-	{
-		
-	}
 	
-	public Deck(String str) {
+	
+	public Deck() {
 		int iCardNbr = 1;
 		for (eSuit eSuit : eSuit.values()) {
 			for (eRank eRank : eRank.values()) {
