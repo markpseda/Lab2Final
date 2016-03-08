@@ -136,7 +136,7 @@ public class HandTest {
 		boolean bActualIsHandFiveOfAKind = Hand.isHandFiveOfAKind(h, hs);
 		boolean bExpectedIsHandFiveOfAKind = true;
 		
-		//	Did this evaluate to Four of a Kind?
+		//	Did this evaluate to Five of a Kind?
 		assertEquals(bActualIsHandFiveOfAKind,bExpectedIsHandFiveOfAKind);		
 		//	Was the five of a kind an Ace?
 		assertEquals(hs.getHiHand(),eRank.ACE.getiRankNbr());		
@@ -161,6 +161,57 @@ public class HandTest {
 		
 		//	Did this evaluate to Five of a Kind?
 		assertEquals(bActualIsHandFiveOfAKind,bExpectedIsHandFiveOfAKind);
+		//Was the five of a kind an Ace?
+		assertEquals(hs.getHiHand(),eRank.ACE.getiRankNbr());
+		//	FOAK has zero kickers
+	}
+	
+	@Test
+	public void TestRoyalFlushTrue() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> RoyalFlush = new ArrayList<Card>();
+		RoyalFlush.add(new Card(eSuit.CLUBS,eRank.TEN,0));
+		RoyalFlush.add(new Card(eSuit.CLUBS,eRank.JACK,0));
+		RoyalFlush.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));		
+		RoyalFlush.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		RoyalFlush.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(RoyalFlush,h);
+		
+		boolean bActualIsHandRoyalFlush = Hand.isHandRoyalFlush(h, hs);
+		boolean bExpecedIsHandRoyalFlush = true;
+		
+		//	Did this evaluate to royal flush?
+		assertEquals(bActualIsHandRoyalFlush,bExpecedIsHandRoyalFlush);
+		//Was the high card an ACE?
+		assertEquals(hs.getHiHand(),eRank.ACE.getiRankNbr());
+		
+		//	FOAK has zero kickers
+	}
+	
+	@Test
+	public void TestRoyalFlushFalse() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> FiveOfAKind = new ArrayList<Card>();
+		FiveOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		FiveOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		FiveOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));		
+		FiveOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		FiveOfAKind.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		
+		Hand h = new Hand();
+		h = SetHand(FiveOfAKind,h);
+		
+		boolean bActualIsHandFiveOfAKind = Hand.isHandFiveOfAKind(h, hs);
+		boolean bExpectedIsHandFiveOfAKind = false;
+		
+		//	Did this evaluate to Five of a Kind?
+		assertEquals(bActualIsHandFiveOfAKind,bExpectedIsHandFiveOfAKind);
+		//Was the high card an ACE?
+		assertEquals(hs.getHiHand(),eRank.ACE.getiRankNbr());
 		//	FOAK has zero kickers
 	}
 	
