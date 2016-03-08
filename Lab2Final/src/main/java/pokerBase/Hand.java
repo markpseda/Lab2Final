@@ -209,7 +209,7 @@ public class Hand {
 			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
 			hs.setLoHand(0);
 			ArrayList<Card> kickers = new ArrayList<Card>();
-			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
+			kickers.add(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()));
 			hs.setKickers(kickers);
 		}
 		else if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() == 
@@ -423,6 +423,7 @@ boolean bHandCheck = false;
 		kickers.add(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()));
 		kickers.add(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()));
 		kickers.add(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()));
+		hs.setKickers(kickers);
 		return true;
 	}
 

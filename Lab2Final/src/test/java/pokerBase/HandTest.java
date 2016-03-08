@@ -120,6 +120,33 @@ public class HandTest {
 	}
 	
 	@Test
+	public void TestSecondFourOfAKindTrue() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> FourOfAKind = new ArrayList<Card>();
+		FourOfAKind.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		FourOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		FourOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));		
+		FourOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		FourOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(FourOfAKind,h);
+		
+		boolean bActualIsHandFourOfAKind = Hand.isHandFourOfAKind(h, hs);
+		boolean bExpectedIsHandFourOfAKind = true;
+		
+		//	Did this evaluate to Four of a Kind?
+		assertEquals(bActualIsHandFourOfAKind,bExpectedIsHandFourOfAKind);		
+		//	Was the four of a kind an Ace?
+		assertEquals(hs.getHiHand(),eRank.ACE.getiRankNbr());		
+		//	FOAK has one kicker.  Was it a Club?
+		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteSuit(), eSuit.CLUBS);
+		//	FOAK has one kicker.  Was it a King?		
+		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.KING);
+	}
+	
+	@Test
 	public void TestFourOfAKindFalse() {
 		
 		HandScore hs = new HandScore();
@@ -266,6 +293,313 @@ public class HandTest {
 		//Royal flush does not have a high card (it is always Ace)
 		
 		//	FOAK has zero kickers
+	}
+	
+	@Test
+	public void TestFirstHandFullHouse() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandFullHouse = Hand.isHandFullHouse(h, hs);
+		
+		//	Did this evaluate to two Pair?
+		assertTrue(bActualIsHandFullHouse);
+		//Was the high card an Four?
+				assertEquals(hs.getHiHand(),eRank.FOUR.getiRankNbr());
+		//no kickers
+	}
+	
+	@Test
+	public void TestSecondHandFullHouse() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandFullHouse = Hand.isHandFullHouse(h, hs);
+		
+		//	Did this evaluate to two Pair?
+		assertTrue(bActualIsHandFullHouse);
+		//Was the high card an Four?
+				assertEquals(hs.getHiHand(),eRank.FIVE.getiRankNbr());
+		//no kickers
+	}
+	
+	@Test
+	public void TestFirstThreeOfAKind() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandThreeOfAKind = Hand.isHandThreeOfAKind(h, hs);
+		
+		//	Did this evaluate to two Pair?
+		assertTrue(bActualIsHandThreeOfAKind);
+		//Was the high card an Four?
+				assertEquals(hs.getHiHand(),eRank.FOUR.getiRankNbr());
+		//kickers
+				assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(),eRank.FIVE);
+	}
+	
+	@Test
+	public void TestMiddleThreeOfAKind() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.FIVE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandThreeOfAKind = Hand.isHandThreeOfAKind(h, hs);
+		
+		//	Did this evaluate to two Pair?
+		assertTrue(bActualIsHandThreeOfAKind);
+		//Was the high card an Four?
+				assertEquals(hs.getHiHand(),eRank.FOUR.getiRankNbr());
+		//kickers
+				assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(),eRank.FIVE);
+	}
+	
+	@Test
+	public void TestLastThreeOfAKind() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.TWO,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.THREE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandThreeOfAKind = Hand.isHandThreeOfAKind(h, hs);
+		
+		//	Did this evaluate to two Pair?
+		assertTrue(bActualIsHandThreeOfAKind);
+		//Was the high card an Four?
+				assertEquals(hs.getHiHand(),eRank.FOUR.getiRankNbr());
+		//kickers
+				assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(),eRank.TWO);
+	}
+	@Test
+	public void TestFirstTwoPair() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandTwoPair = Hand.isHandTwoPair(h, hs);
+		
+		//	Did this evaluate to two Pair?
+		assertTrue(bActualIsHandTwoPair);
+		//Was the high card an FIVE?
+				assertEquals(hs.getHiHand(),eRank.FIVE.getiRankNbr());
+		//kickers
+				assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(),eRank.ACE);
+	}
+	@Test
+	public void TestMiddleTwoPair() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandTwoPair = Hand.isHandTwoPair(h, hs);
+		
+		//	Did this evaluate to two pair?
+		assertTrue(bActualIsHandTwoPair);
+		//Was the high card an KING?
+				assertEquals(hs.getHiHand(),eRank.KING.getiRankNbr());
+		//kickers
+				assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(),eRank.FIVE);
+	}
+	
+	@Test
+	public void TestLastTwoPair() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandTwoPair = Hand.isHandTwoPair(h, hs);
+		
+		//	Did this evaluate to two pair?
+		assertTrue(bActualIsHandTwoPair);
+		//Was the high card an KING?
+				assertEquals(hs.getHiHand(),eRank.KING.getiRankNbr());
+		//kickers
+				assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(),eRank.FOUR);
+	}
+	
+	@Test
+	public void TestFirstPair() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.FIVE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandPair = Hand.isHandPair(h, hs);
+		
+		//	Did this evaluate to pair?
+		assertTrue(bActualIsHandPair);
+		//Was the high card an FIVE?
+				assertEquals(hs.getHiHand(),eRank.FIVE.getiRankNbr());
+		//kickers
+				assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(),eRank.QUEEN);
+	}
+	
+	@Test
+	public void TestSecondPair() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandPair = Hand.isHandPair(h, hs);
+		
+		//	Did this evaluate to pair?
+		assertTrue(bActualIsHandPair);
+		//Was the high card an FIVE?
+				assertEquals(hs.getHiHand(),eRank.FIVE.getiRankNbr());
+		//kickers
+				assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(),eRank.FOUR);
+	}
+	
+	@Test
+	public void TestThirdPair() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.THREE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandPair = Hand.isHandPair(h, hs);
+		
+		//	Did this evaluate to pair?
+		assertTrue(bActualIsHandPair);
+		//Was the high card an FIVE?
+				assertEquals(hs.getHiHand(),eRank.FIVE.getiRankNbr());
+		//kickers
+				assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(),eRank.THREE);
+	}
+	@Test
+	public void TestFourthPair() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> Pair = new ArrayList<Card>();
+		Pair.add(new Card(eSuit.DIAMONDS,eRank.TWO,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.THREE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FOUR,0));		
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		Pair.add(new Card(eSuit.CLUBS,eRank.FIVE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(Pair,h);
+		
+		boolean bActualIsHandPair = Hand.isHandPair(h, hs);
+		
+		//	Did this evaluate to pair?
+		assertTrue(bActualIsHandPair);
+		//Was the high card an FIVE?
+				assertEquals(hs.getHiHand(),eRank.FIVE.getiRankNbr());
+		//kickers
+				assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(),eRank.TWO);
+	}
+	
+	@Test
+	public void TestHighCard() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> HighCard = new ArrayList<Card>();
+		HighCard.add(new Card(eSuit.DIAMONDS,eRank.FIVE,0));
+		HighCard.add(new Card(eSuit.CLUBS,eRank.JACK,0));
+		HighCard.add(new Card(eSuit.CLUBS,eRank.QUEEN,0));		
+		HighCard.add(new Card(eSuit.CLUBS,eRank.KING,0));
+		HighCard.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(HighCard,h);
+		
+		boolean bActualIsHandHighCard = Hand.isHandHighCard(h, hs);
+		
+		//	Did this evaluate to highCard?
+		assertTrue(bActualIsHandHighCard);
+		//Was the high card an ACE?
+				assertEquals(hs.getHiHand(),eRank.ACE.getiRankNbr());
+		//kickers
+				assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(),eRank.FIVE);
 	}
 	
 
