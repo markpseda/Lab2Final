@@ -369,7 +369,7 @@ boolean bHandCheck = false;
 			kickers.add(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()));
 			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
 			hs.setKickers(kickers);
-			
+		
 		} else if (h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteRank() == 
 				h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank()) 
 		{
