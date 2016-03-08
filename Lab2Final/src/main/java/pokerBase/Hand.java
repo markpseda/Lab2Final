@@ -213,7 +213,23 @@ public class Hand {
 	}
 
 	public static boolean isHandFlush(Hand h, HandScore hs) {
-		hs.setHandStrength(eHandStrength.Flush.getHandStrength());
+		if ((h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteSuit()) == 
+				(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteSuit())&&
+				(h.getCardsInHand().get(eCardNo.SecondCard.getCardNo()).geteSuit()) ==
+				(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteSuit())&&
+				(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteSuit()) ==
+				(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteSuit())&&
+				(h.getCardsInHand().get(eCardNo.FourthCard.getCardNo()).geteSuit()) ==
+				(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteSuit()))
+		{
+			hs.setHandStrength(eHandStrength.Flush.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.ThirdCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(0);
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
+			hs.setKickers(kickers);
+			return true;
+		}
 		return false;
 	}
 
