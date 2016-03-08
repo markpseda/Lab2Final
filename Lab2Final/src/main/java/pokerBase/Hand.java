@@ -126,7 +126,17 @@ public class Hand {
 	}
 
 	public static boolean isHandFiveOfAKind(Hand h, HandScore hs) {
-		hs.setHandStrength(eHandStrength.FiveOfAKind.getHandStrength());
+		if (h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() == 
+				h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()).geteRank()) 
+		{
+			hs.setHandStrength(eHandStrength.FiveOfAKind.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(0);
+			ArrayList<Card> kickers = new ArrayList<Card>();
+			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
+			hs.setKickers(kickers);
+			return true;
+		}
 
 		return false;
 	}
@@ -172,6 +182,7 @@ public class Hand {
 	}
 
 	public static boolean isHandFullHouse(Hand h, HandScore hs) {
+		boolean bHandCheck = false;
 		hs.setHandStrength(eHandStrength.FullHouse.getHandStrength());
 		return false;
 	}

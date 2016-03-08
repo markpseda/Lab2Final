@@ -119,7 +119,7 @@ public class HandTest {
 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.KING);
 	}
 	
-	
+	/*
 	public void TestFourOfAKindEval() {
 		
 		ArrayList<Card> FourOfAKind = new ArrayList<Card>();
@@ -151,7 +151,7 @@ public class HandTest {
 		//	FOAK has one kicker.  Was it a King?		
 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.KING);
 	}	
-
+*/
 	
 	
 	
