@@ -133,7 +133,7 @@ public class Hand {
 			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
 			hs.setLoHand(0);
 			ArrayList<Card> kickers = new ArrayList<Card>();
-			kickers.add(h.getCardsInHand().get(eCardNo.FifthCard.getCardNo()));
+			//no kickers for 5 of a kind
 			hs.setKickers(kickers);
 			return true;
 		}
