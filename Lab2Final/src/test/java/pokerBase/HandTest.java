@@ -136,11 +136,11 @@ public class HandTest {
 		boolean bActualIsHandFiveOfAKind = Hand.isHandFiveOfAKind(h, hs);
 		boolean bExpectedIsHandFiveOfAKind = true;
 		
-		//	Did this evaluate to Four of a Kind?
+		//	Did this evaluate to Five of a Kind?
 		assertEquals(bActualIsHandFiveOfAKind,bExpectedIsHandFiveOfAKind);		
 		//	Was the five of a kind an Ace?
 		assertEquals(hs.getHiHand(),eRank.ACE.getiRankNbr());		
-		//	FOAK has zero kickers
+		//	FiveOAK has zero kickers
 	}
 	@Test
 	public void TestFiveOfAKindFalse() {
