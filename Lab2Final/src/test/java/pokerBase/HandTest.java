@@ -119,6 +119,30 @@ public class HandTest {
 		assertEquals(hs.getKickers().get(eCardNo.FirstCard.getCardNo()).geteRank(), eRank.KING);
 	}
 	
+	@Test
+	public void TestFiveOfAKind() {
+		
+		HandScore hs = new HandScore();
+		ArrayList<Card> FiveOfAKind = new ArrayList<Card>();
+		FiveOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		FiveOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		FiveOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));		
+		FiveOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		FiveOfAKind.add(new Card(eSuit.CLUBS,eRank.ACE,0));
+		
+		Hand h = new Hand();
+		h = SetHand(FiveOfAKind,h);
+		
+		boolean bActualIsHandFiveOfAKind = Hand.isHandFiveOfAKind(h, hs);
+		boolean bExpectedIsHandFourOfAKind = true;
+		
+		//	Did this evaluate to Four of a Kind?
+		assertEquals(bActualIsHandFiveOfAKind,bExpectedIsHandFourOfAKind);		
+		//	Was the five of a kind an Ace?
+		assertEquals(hs.getHiHand(),eRank.ACE.getiRankNbr());		
+		//	FOAK has zero kickers
+	}
+	
 	/*
 	public void TestFourOfAKindEval() {
 		
